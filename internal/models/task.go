@@ -36,6 +36,14 @@ func CompleteTask(id uint64) {
 	}
 }
 
+func RenameTask(id uint64, description string) {
+	for i := 0; i < len(tasks); i++ {
+		if tasks[i].id == id {
+			tasks[i].description = description
+		}
+	}
+}
+
 func DeleteTask(id uint64) {
 	for i := 0; i < len(tasks); i++ {
 		if tasks[i].id == id {

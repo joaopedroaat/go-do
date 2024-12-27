@@ -16,5 +16,9 @@ func main() {
 
 	models.DeleteTask(3)
 
+	models.AddTask("Buy toilet paperrr")
+
+	models.RenameTask(4, "Buy toilet paper")
+
 	models.WriteTasks(os.Stdout)
 }
