@@ -1,24 +1,23 @@
 package main
 
 import (
+	"log"
 	"os"
 
-	"github.com/joaopedroaat/go-do/internal/models"
+	"github.com/joaopedroaat/go-do/db"
+	"github.com/joaopedroaat/go-do/internal/services"
 )
 
 func main() {
-	models.AddTask("Take dog for a walk")
-	models.AddTask("Wash the dishes")
+	db, err := db.Open()
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	models.CompleteTask(2)
+	taskService := services.NewTaskService(db)
 
-	models.AddTask("Take drugs")
+	taskService.AddTask("Take dog for a walk")
+	taskService.AddTask("Wash the dishes")
 
-	models.DeleteTask(3)
-
-	models.AddTask("Buy toilet paperrr")
-
-	models.RenameTask(4, "Buy toilet paper")
-
-	models.WriteTasks(os.Stdout)
+	taskService.WriteTasks(os.Stdout)
 }
