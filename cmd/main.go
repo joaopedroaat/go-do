@@ -12,5 +12,9 @@ func main() {
 
 	models.CompleteTask(2)
 
+	models.AddTask("Take drugs")
+
+	models.DeleteTask(3)
+
 	models.WriteTasks(os.Stdout)
 }

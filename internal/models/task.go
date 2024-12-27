@@ -3,6 +3,7 @@ package models
 import (
 	"fmt"
 	"io"
+	"log"
 	"text/tabwriter"
 )
 
@@ -32,6 +33,16 @@ func CompleteTask(id uint64) {
 	for i := 0; i < len(tasks); i++ {
 		if tasks[i].id == id {
 			tasks[i].done = true
+		}
+	}
+}
+
+func DeleteTask(id uint64) {
+	for i := 0; i < len(tasks); i++ {
+		log.Println(i, len(tasks))
+		if tasks[i].id == id {
+			tasks = append(tasks[:i], tasks[i+1:]...)
+			return
 		}
 	}
 }
