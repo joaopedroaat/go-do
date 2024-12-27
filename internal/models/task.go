@@ -28,6 +28,14 @@ func AddTask(description string) {
 	tasks = append(tasks, t)
 }
 
+func CompleteTask(id uint64) {
+	for i := 0; i < len(tasks); i++ {
+		if tasks[i].id == id {
+			tasks[i].done = true
+		}
+	}
+}
+
 func WriteTasks(output io.Writer) {
 	if len(tasks) == 0 {
 		fmt.Println("No tasks")
