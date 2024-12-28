@@ -19,5 +19,7 @@ func main() {
 	taskService.AddTask("Take dog for a walk")
 	taskService.AddTask("Wash the dishes")
 
+	taskService.CompleteTask(40)
+
 	taskService.WriteTasks(os.Stdout)
 }
