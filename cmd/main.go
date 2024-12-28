@@ -23,6 +23,7 @@ func main() {
 		cmds.AddTask(taskService),
 		cmds.CompleteTask(taskService),
 		cmds.RenameTask(taskService),
+		cmds.DeleteTask(taskService),
 	)
 
 	rootCmd.Execute()
