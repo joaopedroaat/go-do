@@ -21,5 +21,7 @@ func main() {
 
 	taskService.CompleteTask(40)
 
+	taskService.RenameTask(40, "Go to gym")
+
 	taskService.WriteTasks(os.Stdout)
 }

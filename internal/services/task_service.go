@@ -48,6 +48,12 @@ func (t *taskService) CompleteTask(id uint64) error {
 }
 
 func (t *taskService) RenameTask(id uint64, description string) error {
+	query := "UPDATE Tasks SET description = ? WHERE id = ?"
+	_, err := t.db.Exec(query, description, id)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
