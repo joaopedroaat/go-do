@@ -21,6 +21,7 @@ func main() {
 	rootCmd.AddCommand(
 		cmds.ListTasks(taskService),
 		cmds.AddTask(taskService),
+		cmds.CompleteTask(taskService),
 	)
 
 	rootCmd.Execute()
