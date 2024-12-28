@@ -58,6 +58,12 @@ func (t *taskService) RenameTask(id uint64, description string) error {
 }
 
 func (t *taskService) DeleteTask(id uint64) error {
+	query := "DELETE FROM Tasks WHERE id = ?"
+	_, err := t.db.Exec(query, id)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

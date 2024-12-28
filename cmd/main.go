@@ -23,5 +23,16 @@ func main() {
 
 	taskService.RenameTask(40, "Go to gym")
 
+	taskService.DeleteTask(30)
+	taskService.DeleteTask(31)
+	taskService.DeleteTask(32)
+	taskService.DeleteTask(33)
+	taskService.DeleteTask(34)
+	taskService.DeleteTask(35)
+	taskService.DeleteTask(36)
+	taskService.DeleteTask(37)
+	taskService.DeleteTask(38)
+	taskService.DeleteTask(39)
+
 	taskService.WriteTasks(os.Stdout)
 }
