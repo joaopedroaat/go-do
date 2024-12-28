@@ -7,7 +7,7 @@ import (
 
 func AddTask(taskService services.TaskService) *cobra.Command {
 	return &cobra.Command{
-		Use:   "add",
+		Use:   "add [description]",
 		Short: "Create new todo",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {

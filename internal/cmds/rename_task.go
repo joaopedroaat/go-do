@@ -10,7 +10,7 @@ import (
 
 func RenameTask(taskService services.TaskService) *cobra.Command {
 	return &cobra.Command{
-		Use:   "rename",
+		Use:   "rename [id] [description]",
 		Short: "Rename a task",
 		Args:  cobra.ExactArgs(2),
 		Run: func(cmd *cobra.Command, args []string) {

@@ -10,7 +10,7 @@ import (
 
 func DeleteTask(taskService services.TaskService) *cobra.Command {
 	return &cobra.Command{
-		Use:   "delete",
+		Use:   "delete [id]",
 		Short: "Delete a task",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {

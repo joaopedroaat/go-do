@@ -10,7 +10,7 @@ import (
 
 func CompleteTask(taskService services.TaskService) *cobra.Command {
 	return &cobra.Command{
-		Use:   "complete",
+		Use:   "complete [id]",
 		Short: "Mark a task as completed",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
