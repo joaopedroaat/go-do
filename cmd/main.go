@@ -18,7 +18,10 @@ func main() {
 	taskService := services.NewTaskService(db)
 
 	rootCmd := &cobra.Command{}
-	rootCmd.AddCommand(cmds.ListTasks(taskService))
+	rootCmd.AddCommand(
+		cmds.ListTasks(taskService),
+		cmds.AddTask(taskService),
+	)
 
 	rootCmd.Execute()
 }
