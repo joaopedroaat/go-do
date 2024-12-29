@@ -11,7 +11,7 @@ import (
 func ListTasks(taskService services.TaskService) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "list",
-		Short: "List all todos",
+		Short: "List todos",
 		Args:  cobra.NoArgs,
 		Run: func(cmd *cobra.Command, args []string) {
 			completed, err := cmd.Flags().GetBool("completed")
