@@ -21,11 +21,10 @@ func ListTasks(taskService services.TaskService) *cobra.Command {
 			}
 
 			if completed {
-				fmt.Println("Completed tasks:")
-				return
+				taskService.WriteCompletedTasks(os.Stdout)
+			} else {
+				taskService.WriteAllTasks(os.Stdout)
 			}
-
-			taskService.WriteAllTasks(os.Stdout)
 		},
 	}
 

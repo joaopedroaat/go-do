@@ -19,6 +19,7 @@ type TaskService interface {
 	RenameTask(id uint64, description string) error
 	DeleteTask(id uint64) error
 	WriteAllTasks(output io.Writer) error
+	WriteCompletedTasks(output io.Writer) error
 }
 
 func NewTaskService(db *sql.DB) *taskService {
@@ -69,6 +70,15 @@ func (t *taskService) DeleteTask(id uint64) error {
 
 func (t *taskService) WriteAllTasks(output io.Writer) error {
 	rows, err := t.db.Query("SELECT * FROM Tasks")
+	if err != nil {
+		return err
+	}
+
+	return writeTasks(output, rows)
+}
+
+func (t *taskService) WriteCompletedTasks(output io.Writer) error {
+	rows, err := t.db.Query("SELECT * FROM Tasks WHERE done = TRUE")
 	if err != nil {
 		return err
 	}
