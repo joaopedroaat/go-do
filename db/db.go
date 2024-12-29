@@ -2,12 +2,25 @@ package db
 
 import (
 	"database/sql"
+	"os"
+	"path/filepath"
 
 	_ "github.com/mattn/go-sqlite3"
 )
 
 func Open() (*sql.DB, error) {
-	db, err := sql.Open("sqlite3", "./db/data/tasks.db")
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		return nil, err
+	}
+
+	dbPath := filepath.Join(homeDir, ".godo", "data", "tasks.db")
+	err = os.MkdirAll(filepath.Dir(dbPath), os.ModePerm)
+	if err != nil {
+		return nil, err
+	}
+
+	db, err := sql.Open("sqlite3", dbPath)
 	if err != nil {
 		return nil, err
 	}
