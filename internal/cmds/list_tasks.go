@@ -20,15 +20,29 @@ func ListTasks(taskService services.TaskService) *cobra.Command {
 				return
 			}
 
-			if completed {
+			listAll, err := cmd.Flags().GetBool("all")
+			if err != nil {
+				fmt.Println(err)
+				return
+			}
+
+			if completed && listAll {
+				fmt.Println("Error: --completed and --all flags cannot be used together.")
+				return
+			}
+
+			if listAll {
+				taskService.WriteAllTasks(os.Stdout)
+			} else if completed {
 				taskService.WriteCompletedTasks(os.Stdout)
 			} else {
-				taskService.WriteAllTasks(os.Stdout)
+				taskService.WriteNotDoneTasks(os.Stdout)
 			}
 		},
 	}
 
 	cmd.Flags().Bool("completed", false, "List only completed tasks")
+	cmd.Flags().Bool("all", false, "List all tasks")
 
 	return cmd
 }
