@@ -28,7 +28,7 @@ func ListTasks(taskService services.TaskService) *cobra.Command {
 		},
 	}
 
-	cmd.Flags().Bool("completed", true, "List only completed tasks")
+	cmd.Flags().Bool("completed", false, "List only completed tasks")
 
 	return cmd
 }
