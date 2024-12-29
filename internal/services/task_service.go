@@ -120,7 +120,15 @@ func writeTasks(output io.Writer, tasks *sql.Rows) error {
 
 	fmt.Fprintln(w, "Id\tDescription\tStatus")
 	for _, t := range tasksSlice {
-		fmt.Fprintf(w, "%d\t%s\t%t\n", t.Id, t.Description, t.Done)
+		var status string
+
+		if t.Done {
+			status = "Done"
+		} else {
+			status = "Todo"
+		}
+
+		fmt.Fprintf(w, "%d\t%s\t%s\n", t.Id, t.Description, status)
 	}
 
 	w.Flush()
