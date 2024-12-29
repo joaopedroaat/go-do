@@ -25,7 +25,7 @@ func ListTasks(taskService services.TaskService) *cobra.Command {
 				return
 			}
 
-			taskService.WriteTasks(os.Stdout)
+			taskService.WriteAllTasks(os.Stdout)
 		},
 	}
 

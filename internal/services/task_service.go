@@ -18,7 +18,7 @@ type TaskService interface {
 	CompleteTask(id uint64) error
 	RenameTask(id uint64, description string) error
 	DeleteTask(id uint64) error
-	WriteTasks(output io.Writer) error
+	WriteAllTasks(output io.Writer) error
 }
 
 func NewTaskService(db *sql.DB) *taskService {
@@ -67,37 +67,39 @@ func (t *taskService) DeleteTask(id uint64) error {
 	return nil
 }
 
-func (t *taskService) WriteTasks(output io.Writer) error {
+func (t *taskService) WriteAllTasks(output io.Writer) error {
 	rows, err := t.db.Query("SELECT * FROM Tasks")
 	if err != nil {
 		return err
 	}
 
-	defer rows.Close()
+	return writeTasks(output, rows)
+}
 
-	var tasks []models.Task
+func writeTasks(output io.Writer, tasks *sql.Rows) error {
+	defer tasks.Close()
 
-	for rows.Next() {
+	var tasksSlice []models.Task
+
+	for tasks.Next() {
 		var task models.Task
-		err := rows.Scan(&task.Id, &task.Description, &task.Done)
+		err := tasks.Scan(&task.Id, &task.Description, &task.Done)
 		if err != nil {
 			return err
 		}
 
-		tasks = append(tasks, task)
+		tasksSlice = append(tasksSlice, task)
 	}
 
-	if len(tasks) == 0 {
+	if len(tasksSlice) == 0 {
 		fmt.Println("No tasks")
 		return nil
 	}
 
-	fmt.Println(len(tasks))
-
 	w := tabwriter.NewWriter(output, 0, 0, 2, ' ', 0)
 
 	fmt.Fprintln(w, "Id\tDescription\tStatus")
-	for _, t := range tasks {
+	for _, t := range tasksSlice {
 		fmt.Fprintf(w, "%d\t%s\t%t\n", t.Id, t.Description, t.Done)
 	}
 
